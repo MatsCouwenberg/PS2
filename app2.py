@@ -4,7 +4,6 @@ import cv2
 
 app = Flask(__name__)
 
-
 # Function to read QR code from a frame
 def read_qr_code(frame):
     decoded_objects = decode(frame)
