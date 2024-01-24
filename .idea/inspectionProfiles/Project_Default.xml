@@ -1,0 +1,38 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="7">
+            <item index="0" class="java.lang.String" itemvalue="x-text" />
+            <item index="1" class="java.lang.String" itemvalue="x-data" />
+            <item index="2" class="java.lang.String" itemvalue="x-init" />
+            <item index="3" class="java.lang.String" itemvalue="x-if" />
+            <item index="4" class="java.lang.String" itemvalue="x-for" />
+            <item index="5" class="java.lang.String" itemvalue="x-on:click" />
+            <item index="6" class="java.lang.String" itemvalue="x-model" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="sqlalchemy" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="H2_oef3.lower" />
+          <option value="dict.add" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
