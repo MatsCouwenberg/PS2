@@ -1,8 +1,15 @@
 from flask import Flask, render_template
+from flask_socketio import SocketIO
 from pyzbar.pyzbar import decode
 import cv2
 
 app = Flask(__name__)
+socketio = SocketIO(app)
+
+# Global variables to store QR code data and orientation
+qr_code_dict = {}
+scanned_count = 0
+stop_scan = False  # New variable to indicate whether to stop scanning
 
 # Function to read QR code from a frame
 def read_qr_code(frame):
@@ -28,14 +35,12 @@ def read_qr_code(frame):
     else:
         return None
 
-
-def continuous_qr_code_scan():
+# Function to start QR code scanning
+def start_qr_code_scan():
+    global qr_code_dict, stop_scan
     cap = cv2.VideoCapture(0)  # 0 = default webcam
 
-    qr_code_dict = {}  # Dictionary to store QR code data and orientation
-    scanned_count = 0
-
-    while True:
+    while not stop_scan:
         ret, frame = cap.read()
 
         if not ret:
@@ -49,12 +54,7 @@ def continuous_qr_code_scan():
 
             if data not in qr_code_dict:
                 qr_code_dict[data] = orientation
-                scanned_count += 1
                 print("Added to dictionary:", data, orientation)
-
-            if scanned_count == 2:
-                yield qr_code_dict
-                break
 
         key = cv2.waitKey(1)
         if key == 27:  # ASCII code for 'esc' key
@@ -63,24 +63,30 @@ def continuous_qr_code_scan():
     cap.release()
     cv2.destroyAllWindows()
 
-
+# Function to stop QR code scanning
+def stop_qr_code_scan():
+    global stop_scan
+    stop_scan = True
+# Route to serve the HTML page with the buttons
 @app.route('/')
 def index():
-    global qr_code_dict
-    updates = continuous_qr_code_scan()
+    return render_template('index.html')
 
-    # Include the first element directly in the loop
-    for update in updates:
-        qr_code_dict = update
-        break
+# SocketIO event to trigger QR code scanning
+@socketio.on('start_scan')
+def handle_start_scan():
+    global qr_code_dict, scanned_count, stop_scan
+    qr_code_dict = {}
+    scanned_count = 0
+    stop_scan = False
+    start_qr_code_scan()
+    socketio.emit('scan_result', qr_code_dict)
 
-    if qr_code_dict:
-        # Print the full dictionary to the console
-        print("Final QR Code Dictionary:", qr_code_dict)
-        return render_template('index.html', updates=updates, qr_code_dict=qr_code_dict)
-    else:
-        return "Scanning QR codes, please wait..."
-
+# SocketIO event to stop QR code scanning
+@socketio.on('stop_scan')
+def handle_stop_scan():
+    stop_qr_code_scan()
+    socketio.emit('scan_stopped', 'Scanning stopped.')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)

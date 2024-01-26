@@ -4,22 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
 </head>
 <body>
     <h1>QR Code Scanner</h1>
 
-    <div id="qrCodeContent">
-        {% if qr_code_dict %}
-            <h2>Final QR Code Dictionary:</h2>
-            <ul>
-                {% for key, value in qr_code_dict.items() %}
-                    <li>{{ key }}: {{ value }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No QR code scanned</p>
-        {% endif %}
-    </div>
+    <button onclick="startScan()">Start Scan</button>
+    <button onclick="stopScan()">Stop Scan</button>
 
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        function startScan() {
+            socket.emit('start_scan');
+        }
+
+        function stopScan() {
+            socket.emit('stop_scan');
+        }
+
+        socket.on('scan_result', function(data) {
+            console.log("Final QR Code Dictionary:", data);
+            // Handle the scan result as needed
+        });
+
+        socket.on('scan_stopped', function(message) {
+            console.log(message);
+            // Handle the scan stopped message as needed
+        });
+    </script>
 </body>
 </html>

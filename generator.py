@@ -1,6 +1,12 @@
 import qrcode
 
-rnummers = ['r0937899', 'r0937894', 'r0999894', 'r1937894', 'r0937594', 'r0977894']
+rnummers = """0901062
+0937870
+0889003
+"""
+
+# Split the data into lines and add 'r' before each number
+result_array = [f"r{line}" for line in rnummers.strip().split('\n')]
 
 def generate_qr_code(data_to_encode, output_file="qr_code.png"):
     qr = qrcode.QRCode(
@@ -14,9 +20,9 @@ def generate_qr_code(data_to_encode, output_file="qr_code.png"):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white")
 
-    img.save(output_file)
+    img.save(output_file, 'PNG')
 
-for rnummer in rnummers:
+for rnummer in result_array:
     data_to_encode = rnummer
     output_file = f"{rnummer}.png"
     generate_qr_code(data_to_encode, output_file)

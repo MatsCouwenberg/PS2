@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #F5F5F5;
+        }
+
+        .quiz-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 150px;
+            position: relative;
+            background-color: rgba(211, 211, 211, 0.4);
+            border: 3px solid #ec6639;
+        }
+
+        .answer-box {
+            margin-top: 50px;
+        }
+
+        .btn {
+            padding: 20px;
+            border:0;
+            color:white;
+          font-size: 20px;
+        }
+
+        .next-btn {
+            position: absolute;
+            width: 200px;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .quit-btn {
+            position: absolute;
+            width: 200px;
+            bottom: 20px;
+            left: 20px;
+        }
+        img {
+        width: 200px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+}
+    </style>
+</head>
+<body>
+ <img src="afbeelding.png" alt="thomasmore">
+<div class="quiz-container container-fluid">
+  <h1>quiznaam</h1>
+    <h2 class="mb-4">Question: What is the capital of France?</h2>
+
+    <div class="row answer-box">
+        <div class="col-md-6">
+            <button class="btn btn-primary btn-block" style="background-color: green;">Option A</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary btn-block" style=" background-color: #FDDA0D;">Option B</button>
+        </div>
+    </div>
+
+    <div class="row answer-box">
+        <div class="col-md-6">
+            <button class="btn btn-primary btn-block" style="background-color: blue;">Option C</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary btn-block" style="background-color: red;">Option D</button>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-primary quit-btn" style="background-color: #ec6639;">Quit</button>
+<button class="btn btn-primary next-btn" style="background-color: #ec6639;">Next</button>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

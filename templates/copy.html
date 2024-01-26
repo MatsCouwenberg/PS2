@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+</head>
+<body>
+    <h1>QR Code Scanner</h1>
+
+    <div id="qrCodeContent">
+        {% if qr_code_dict %}
+            <h2>Final QR Code Dictionary:</h2>
+            <ul>
+                {% for key, value in qr_code_dict.items() %}
+                    <li>{{ key }}: {{ value }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No QR code scanned</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
